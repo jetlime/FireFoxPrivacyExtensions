@@ -1,0 +1,21 @@
+{
+
+    "manifest_version": 2,
+    "name": "CheckIt",
+    "version": "1.0",
+  
+    "description": "Shows the trackers used on this website",
+  
+    "icons": {
+      "main_icon": "icons/tracker.png"
+    },
+  
+    "content_scripts": [
+      {
+        "matches": ["*://*.mozilla.org/*"],
+        "js": ["tracker.js"]
+      }
+    ]
+  
+  }
+  
