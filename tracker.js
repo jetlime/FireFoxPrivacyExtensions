@@ -1,30 +1,36 @@
 
 fingerprinting_functions = {
-    ".getUserMedia" : "Looks for used Device",
-    ".availHeight" : "Looks for screen Height",
-    ".availWidth": "Looks for screen width",
-    ".charCodeAt": "Looks for used font",
-    ".colorDepth": "Looks for color depth of your screen",
-    ".getTimezoneOffset": "Looks for your Time zone",
-    ".javaEnabled" : "Looks if you enabled Javascript",
-    ".mimeType": "Looks for mimeType",
-    ".platform" : "Looks for OS",
-    ".plugins": "Looks for your plugins",
-    ".propertyIsEnumerable": "Looks for config",
-    ".referrer": "Looks for referrer",
-    ".screen" : "Looks for your screen details",
-    "canvas": "Looks for canvas used in browser"
+    ".getUserMedia" : "looking for used Device",
+    ".availHeight" : "looking for screen Height",
+    ".availWidth": "looking for screen width",
+    ".charCodeAt": "looking for used font",
+    ".colorDepth": "looking for color depth of your screen",
+    ".getTimezoneOffset": "looking for your Time zone",
+    ".javaEnabled" : "looking if you enabled Javascript",
+    ".mimeType": "looking for mimeType",
+    ".platform" : "looking for OS",
+    ".plugins": "looking for your plugins",
+    ".propertyIsEnumerable": "looking for config",
+    ".referrer": "looking for referrer",
+    ".screen" : "looking for your screen details",
+    "canvas": "looking for canvas used in browser"
 }
 
 var span = document.getElementById("trackers")
 var JsList = document.getElementById("jslist")
 
-function checkKeywords(text) {
-    var matched = Object.keys(fingerprinting_functions).find(key => text.toLowerCase().search(key) > -1);
+function checkKeywords(text, fileName) {
+    var matched = Object.keys(fingerprinting_functions).find(key => text.toLowerCase().search(key) > -1);    
     if(matched){
-        console.log(fingerprinting_functions[matched])
-    }
-    
+        console.log(`${fileName.split( '/' ).pop()} is ${fingerprinting_functions[matched]} using ${matched}`)
+    }   
+}
+
+async function errorHandling(text, fileName){
+    console.log(`Failed to load ${fileName.split('/').pop()}`)
+    const response = await fetch(fileName);
+    var data = await response;
+    console.log(data)
 }
 
 var jsFilePaths = Array.prototype.slice
@@ -34,12 +40,11 @@ var jsFilePaths = Array.prototype.slice
 
 for(let i=0; i < jsFilePaths.length ; i++){
     jsfile = jsFilePaths[i]
-    console.log(jsFilePaths[i])
+    console.log(i)
     fetch(jsfile)
     .then( r => r.text() )
-    .then( t => checkKeywords(t)
-    
-    )
+    .then( t => checkKeywords(t, jsfile))
+    .catch(t => errorHandling(t, jsfile))
 }
 /*
 for(let i=0; i < jsFilePaths.length ; i++){
