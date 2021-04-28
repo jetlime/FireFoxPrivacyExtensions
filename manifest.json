@@ -12,7 +12,7 @@
   
     "content_scripts": [
       {
-        "matches": ["*://*.amazon.com/*"],
+        "matches": ["<all_urls>" ],
         "js": ["tracker.js"]
       }
     ],
