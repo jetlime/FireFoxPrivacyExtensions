@@ -24,6 +24,8 @@ function checkKeywords(text, fileName) {
     if(matched){
         console.log(`${fileName.split( '/' ).pop()} is ${fingerprinting_functions[matched]} using ${matched}`)
     }   
+    var textElement = document.createElement("p")
+    textElement.innerText = "paul"
 }
 
 async function errorHandling(text, fileName){
