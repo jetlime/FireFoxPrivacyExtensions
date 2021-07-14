@@ -7,15 +7,23 @@
     "description": "Shows the trackers used on this website",
   
     "icons": {
-      "main_icon": "icons/tracker.png"
+      "48": "icons/tracker.png" // sources : https://icon-icons.com/fr/icone/les-yeux-despion-de-recherche-regarder-globe-oculaire/55993
     },
   
     "content_scripts": [
       {
-        "matches": ["*://*.mozilla.org/*"],
+        "matches": ["<all_urls>" ],
         "js": ["tracker.js"]
       }
-    ]
+    ],
+    "browser_action" : {
+      "browser_style" : true,
+      "default_icon" : {
+        "48" : "icons/tracker.png" // sources : https://icon-icons.com/fr/icone/les-yeux-despion-de-recherche-regarder-globe-oculaire/55993
+      },
+      "default_title" : "Checkit",
+      "default_popup" : "/popup.html"
+    }
   
   }
   
